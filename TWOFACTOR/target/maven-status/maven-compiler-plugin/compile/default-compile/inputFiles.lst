@@ -1,3 +1,6 @@
-D:\U\Proyecto de grado\PDG\TWOFACTOR\src\main\java\com\twofactor\logic\GoogleAPI.java
-D:\U\Proyecto de grado\PDG\TWOFACTOR\src\main\java\com\twofactor\controllers\AppController.java
-D:\U\Proyecto de grado\PDG\TWOFACTOR\src\main\java\com\twofactor\main\App.java
+/root/Documents/Proyecto de grado/PDG/TWOFACTOR/src/main/java/com/twofactor/model/User.java
+/root/Documents/Proyecto de grado/PDG/TWOFACTOR/src/main/java/com/twofactor/controller/AppController.java
+/root/Documents/Proyecto de grado/PDG/TWOFACTOR/src/main/java/com/twofactor/service/RegistryInterface.java
+/root/Documents/Proyecto de grado/PDG/TWOFACTOR/src/main/java/com/twofactor/service/Registry.java
+/root/Documents/Proyecto de grado/PDG/TWOFACTOR/src/main/java/com/twofactor/main/App.java
+/root/Documents/Proyecto de grado/PDG/TWOFACTOR/src/main/java/com/twofactor/service/GoogleAPI.java

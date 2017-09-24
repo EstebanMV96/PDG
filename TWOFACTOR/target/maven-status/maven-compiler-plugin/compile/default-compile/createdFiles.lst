@@ -1,3 +1,6 @@
-com\twofactor\controllers\AppController.class
-com\twofactor\logic\GoogleAPI.class
-com\twofactor\main\App.class
+com/twofactor/model/User.class
+com/twofactor/service/GoogleAPI.class
+com/twofactor/main/App.class
+com/twofactor/controller/AppController.class
+com/twofactor/service/RegistryInterface.class
+com/twofactor/service/Registry.class

@@ -6,16 +6,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-/**
- * Hello world!
- *
- */
+
 @SpringBootApplication
 @Configuration
 @ComponentScan(basePackages = "com.twofactor")
 @EnableAutoConfiguration
 @EntityScan(basePackages = "com.twofactor")
+@EnableJpaRepositories("com.twofactor.repository")
 public class App 
 {
     public static void main( String[] args )
