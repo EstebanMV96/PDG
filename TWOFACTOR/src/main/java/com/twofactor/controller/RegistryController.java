@@ -41,7 +41,7 @@ public class RegistryController {
 			registry.onAuth(id);
 			return gson.toJson("OK");
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 			return gson.toJson("NOK");
 
 		}

@@ -34,13 +34,15 @@ public class LoginController {
 				return gson.toJson("OK");
 			}else
 			{	
+				LOG.info("Login failed for user "+id);
 				return gson.toJson("NOK");
 
 			}
 			
 		} catch (Exception e) {
 			
-			LOG.error("Problem when generate hash for user "+id);
+			
+			LOG.error("Problem with user "+id+" ERROR: "+e.getMessage());
 			return gson.toJson("NOK");
 
 		}

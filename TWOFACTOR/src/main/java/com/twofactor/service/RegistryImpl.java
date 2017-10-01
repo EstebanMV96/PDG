@@ -2,6 +2,9 @@ package com.twofactor.service;
 
 import static org.mockito.Matchers.endsWith;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.twofactor.model.ScratchCode;
 import com.twofactor.model.User;
+import com.twofactor.repository.ScratchCodeJPARepository;
 import com.twofactor.repository.UserJPARepository;
 import com.twofactor.security.Cifrador;
 import com.twofactor.security.SHA256;
@@ -34,6 +39,9 @@ public class RegistryImpl implements Registry {
 
 	@Autowired
 	private UserJPARepository dataBase;
+	
+	@Autowired
+	private ScratchCodeJPARepository databaseCodes;
 
 	@Override
 	public void onAuth(String user) throws Exception {
@@ -42,11 +50,20 @@ public class RegistryImpl implements Registry {
 		if (searchUser(has) == null) {
 			String sal = RandomStringUtils.randomAlphanumeric(16);
 			String fullId = has + sal;
-			String seed = api.generarNuevaSemilla();
+			Object[] res=api.generarNuevaSemilla();
+			String seed = (String)res[0];	
 			String seedEncrypt = cifra.cifrar(seed, sal);
 			User ne = new User(fullId, seedEncrypt);
-			LOG.info("Method onAuth: add user " + ne.toString());
 			dataBase.save(ne);
+			List<Integer> codes=(List<Integer>) res[1];
+			Iterator<Integer> i=codes.iterator();
+			while(i.hasNext())
+			{
+				databaseCodes.save(new ScratchCode(new Date().getTime(), ne, i.next(),false));
+				
+			}
+			
+			LOG.info("Method onAuth: add user " + ne.toString());
 		} else {
 			LOG.error("Method onAuth: failed add user " + user + " USER EXIST");
 			throw new Exception("User exist");

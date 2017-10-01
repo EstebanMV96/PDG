@@ -1,56 +1,56 @@
 package com.twofactor.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.twofactor.model.ScratchCode;
 import com.twofactor.model.User;
 import com.twofactor.repository.ScratchCodeJPARepository;
 import com.twofactor.repository.UserJPARepository;
 import com.twofactor.security.Cifrador;
 import com.twofactor.security.SHA256;
-
-@Service("login")
-public class LoginImpl implements Login{
+@Service("emergencyCodes")
+public class EmergencyCodeImpl implements EmergencyCode{
 	
 	
 	@Autowired
-	@Qualifier("GoogleAPI")
-	private GoogleAPI api;
-
+	private ScratchCodeJPARepository dataBaseC;
+	
 	@Autowired
 	private SHA256 encrypt;
 
 	@Autowired
-	private Cifrador cifra;
-
-	@Autowired
 	private UserJPARepository dataBase;
 	
-	
-	
-	private static final Log LOG = LogFactory.getLog(LoginImpl.class);
+	private static final Log LOG = LogFactory.getLog(EmergencyCodeImpl.class);
 
 
 	@Override
-	public boolean codeIsOk(String idUser, int code) throws Exception {
-		
+	public List<Integer> getEmergencyCodes(String idUser)throws Exception {
 		String has = encrypt.getHash(idUser);
-		LOG.info("Method codeIsOk: "+idUser+" Code: "+code);
+		LOG.info("Method getEmergencyCodes: User  "+idUser+"need emergency codes");
 		User find=searchUser(has);
-		if(find==null)
-			throw new Exception("User not exist");
-		else
+		if(find!=null)
 		{
-			String seed=cifra.des(find.getSeed(), find.getId().substring(64));
-			return api.login(code, seed,find);
-		}
+			List<Integer> fullCodes=new ArrayList<Integer>();
+			List<ScratchCode> codesUser=dataBaseC.findAllByUser(find);
+			for (int i = 0; i < codesUser.size(); i++) {
+				
+				if(!codesUser.get(i).isUsed())
+				fullCodes.add(codesUser.get(i).getCode());
+			}
+			return fullCodes;
+		}else
+			throw new Exception("User dont exist");
+		
 	}
-	
+
+
 	
 	private User searchUser(String user) {
 		User res = null;
@@ -67,8 +67,6 @@ public class LoginImpl implements Login{
 		return res;
 
 	}
-	
-	
 	
 
 }
