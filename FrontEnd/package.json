@@ -1,0 +1,31 @@
+{
+  "name": "TwoFactor",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.16.2",
+    "lodash": "^4.17.4",
+    "react": "^15.6.1",
+    "react-alert": "^2.3.0",
+    "react-dom": "^15.6.1",
+    "react-loading": "^0.1.4",
+    "react-modal": "^2.3.2",
+    "react-popup": "^0.8.0",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "4.0.0",
+    "react-scripts": "1.0.13",
+    "redux": "^3.7.2",
+    "redux-form": "^7.0.4",
+    "redux-promise": "^0.5.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "main": "index.js",
+  "repository": "https://github.com/AndresVD21/TwoFactor.git",
+  "author": "Andres <andresvd21@gmail.com>",
+  "license": "MIT"
+}
