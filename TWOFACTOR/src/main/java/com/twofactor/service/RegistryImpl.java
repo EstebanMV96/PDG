@@ -40,8 +40,6 @@ public class RegistryImpl implements Registry {
 	@Autowired
 	private UserJPARepository dataBase;
 	
-	@Autowired
-	private ScratchCodeJPARepository databaseCodes;
 
 	@Override
 	public void onAuth(String user) throws Exception {
@@ -50,19 +48,10 @@ public class RegistryImpl implements Registry {
 		if (searchUser(has) == null) {
 			String sal = RandomStringUtils.randomAlphanumeric(16);
 			String fullId = has + sal;
-			Object[] res=api.generarNuevaSemilla();
-			String seed = (String)res[0];	
+			String seed = api.generarNuevaSemilla();;	
 			String seedEncrypt = cifra.cifrar(seed, sal);
 			User ne = new User(fullId, seedEncrypt);
-			dataBase.save(ne);
-			List<Integer> codes=(List<Integer>) res[1];
-			Iterator<Integer> i=codes.iterator();
-			while(i.hasNext())
-			{
-				databaseCodes.save(new ScratchCode(new Date().getTime(), ne, i.next(),false));
-				
-			}
-			
+			dataBase.save(ne);	
 			LOG.info("Method onAuth: add user " + ne.toString());
 		} else {
 			LOG.error("Method onAuth: failed add user " + user + " USER EXIST");

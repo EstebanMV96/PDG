@@ -34,6 +34,24 @@ public class LoginImpl implements Login{
 	
 	
 	private static final Log LOG = LogFactory.getLog(LoginImpl.class);
+	
+	
+	public boolean isRegistrator(String idUser) throws Exception{
+		
+		boolean res=false;
+		String has = encrypt.getHash(idUser);
+		User find=searchUser(has);
+		
+		if(find!=null)
+			res=true;
+		
+		
+		return res;
+
+		
+		
+		
+	}
 
 
 	@Override

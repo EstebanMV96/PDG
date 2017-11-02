@@ -9,5 +9,8 @@ public interface EmergencyCode {
 	
 	
 	public abstract List<Integer> getEmergencyCodes(String idUser)throws Exception;
+	
+	
+	public abstract List<Integer> generateNewCodes(String idUser)throws Exception;
 
 }

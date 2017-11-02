@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,23 @@ public class LoginController {
 	private static final  Log LOG=LogFactory.getLog(LoginController.class);
 	@Autowired
 	private Login login;
-
+	
+	@GetMapping("/{id}")
+	public @ResponseBody String validate(@PathVariable("id") String id)
+	{
+		
+		Gson gson=new Gson();
+		try {
+			if(login.isRegistrator(id))
+				return gson.toJson("OK");
+			else
+				return gson.toJson("NOK");
+			
+		}catch (Exception e) {
+			return gson.toJson("NOK");
+		}
+		
+	}
 	@GetMapping("/{id}/{code}")
 	public @ResponseBody String login(@PathVariable("id") String id,@PathVariable("code") String code)
 	{
